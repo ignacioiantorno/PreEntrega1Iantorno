@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Badge, Nav } from 'react-bootstrap';
 import { FaShoppingCart } from 'react-icons/fa';
+import { CartContext } from '../CartContext';
 
 const CartWidget = () => {
-  const itemCount = 5; 
+  const { cart } = useContext(CartContext);
+  const itemCount = Object.values(cart).reduce((total, item) => total + item.quantity, 0);
 
   return (
     <Nav.Link href="#">
       <FaShoppingCart />
-      <Badge variant="secondary">{itemCount}</Badge>
+      {itemCount > 0 && <Badge variant="secondary">{itemCount}</Badge>}
     </Nav.Link>
   );
-}
+};
 
 export default CartWidget;
